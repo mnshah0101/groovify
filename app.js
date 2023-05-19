@@ -75,20 +75,7 @@ mongoose.connect(`mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mon
 //Session Configuration
 
 
-const sessionConfig = {
-    store,
-    name: process.env.SESSION_NAME,
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: false,
-        expires: Date.now() + 1000 * 60 * 60,
-        maxAge: 1000 * 60 * 60,
-        httpOnly: true
-    }
 
-}
 app.use(session({
     name: process.env.SESSION_NAME,
     secret: process.env.SESSION_SECRET,
