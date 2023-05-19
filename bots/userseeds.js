@@ -6,9 +6,15 @@ const mongoose = require('mongoose');
 const users = [];
 const crypto = require('crypto');
 
-require('dotenv').config(
-    { path: '../.env' }
-);
+if (process.env.NODE_ENV === "production") {
+    console.log("Code is running in production environment.");
+} else {
+    require('dotenv').config(
+        { path: '../.env' }
+    );
+
+}
+
 var mongo_user = process.env.MONGO_USER;
 var mongo_pass = process.env.MONGO_PASSWORD;
 var SECRET_KEY = process.env.CRYPTO_KEY;

@@ -1,4 +1,13 @@
-require('dotenv').config();
+if (process.env.NODE_ENV === "production") {
+    console.log("Code is running in production environment.");
+} else {
+    require('dotenv').config();
+
+}
+
+
+
+
 const express = require('express');
 const app = express(); // create express app
 const port = 3000; // define port

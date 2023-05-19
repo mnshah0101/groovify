@@ -9,9 +9,17 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const { faker } = require('@faker-js/faker');
 const geoip = require('geoip-lite');
 const crypto = require('crypto');
-require('dotenv').config(
-    { path: '../.env' }
-);
+
+
+if (process.env.NODE_ENV === "production") {
+    console.log("Code is running in production environment.");
+} else {
+    require('dotenv').config(
+        { path: '../.env' }
+    );
+
+}
+
 var mongo_user = process.env.MONGO_USER;
 var mongo_pass = process.env.MONGO_PASSWORD;
 const ALGORITHM = 'aes-256-cbc';
