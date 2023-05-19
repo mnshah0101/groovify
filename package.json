@@ -2,7 +2,7 @@
   "name": "playlistapp",
   "version": "1.0.0",
   "description": "this is an app to create spotify playlists",
-  "main": "index.js",
+  "main": "app.js",
   "engines": {
     "node": "16.x"
   },
