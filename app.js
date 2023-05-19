@@ -29,7 +29,7 @@ const Comment = require('./models/comments');
 const fs = require('fs');
 var CronJob = require('cron').CronJob;
 const { spawn } = require('child_process');
-var MongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo');
 
 
 var job = new CronJob(
@@ -74,11 +74,6 @@ mongoose.connect(`mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mon
 
 //Session Configuration
 
-const store = new MongoStore({
-    url: `mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mongodb.net/?retryWrites=true&w=majority`,
-    secret: process.env.SESSION_SECRET,
-    touchAfter: 24 * 60 * 60
-});
 
 const sessionConfig = {
     store,
@@ -93,9 +88,21 @@ const sessionConfig = {
         httpOnly: true
     }
 
-
 }
-app.use(session(sessionConfig));
+app.use(session({
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: `mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mongodb.net/?retryWrites=true&w=majority`, // replace with your MongoDB connection string
+        collectionName: 'sessions', // optional; default is 'sessions'
+    }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24, // session will expire after 1 day
+    },
+}));
+
 
 
 
