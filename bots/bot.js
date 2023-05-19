@@ -76,7 +76,7 @@ let getTracks = async function (user) {
     let spotifyApi = new SpotifyWebApi({
         clientId: client_id,
         clientSecret: client_secret,
-        redirectUri: 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback'
+        redirectUri: 'https://groovify-spotify.vercel.app/callback'
     });
     spotifyApi.setAccessToken(this_user.accessToken);
     spotifyApi.setRefreshToken(this_user.refreshToken);
@@ -102,7 +102,7 @@ let getRecommendations = async function (user, tracks) {
     let spotifyApi = new SpotifyWebApi({
         clientId: client_id,
         clientSecret: client_secret,
-        redirectUri: 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback'
+        redirectUri: 'https://groovify-spotify.vercel.app/callback'
     });
     spotifyApi.setAccessToken(this_user.accessToken);
     spotifyApi.setRefreshToken(this_user.refreshToken);
@@ -129,7 +129,7 @@ let createPlaylist = async function (user, playlistName, playlistDescription) {
     let spotifyApi = new SpotifyWebApi({
         clientId: client_id,
         clientSecret: client_secret,
-        redirectUri: 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback'
+        redirectUri: 'https://groovify-spotify.vercel.app/callback'
     });
     spotifyApi.setAccessToken(this_user.accessToken);
     spotifyApi.setRefreshToken(this_user.refreshToken);
@@ -160,7 +160,7 @@ let createPlaylists = async function (users) {
         let spotifyApi = new SpotifyWebApi({
             clientId: client_id,
             clientSecret: client_secret,
-            redirectUri: 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback'
+            redirectUri: 'https://groovify-spotify.vercel.app/callback'
         });
         spotifyApi.setAccessToken(user.accessToken);
         spotifyApi.setRefreshToken(user.refreshToken);
