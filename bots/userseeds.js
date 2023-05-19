@@ -43,9 +43,9 @@ function createRandomUser() {
         followers: [],
         following: [],
         lastRefresh: Date.now(),
-        accessToken: 'BQDqTu4ZQHJnytqCjCZr2AkfuRZkZSFuAV7rLrqHD0sdBd2bzE3a6Kv84RHL_FU4I1AvCK_JDtfql63ycVDUpQLNm1DPryzkU9AvmcW6rH88wYRFZ-lHI29Z79j1CFcBn-ZwYl2gOWyH5cirLZQUNqAcvHdQApDzvT_-DMk9PeGmUaEcD3gqKZBm4ttRHSBERSVFCWOSISOrCiEEttdZyjBGxRV00WFDmc8fczXwNCFKGxSErxWV0Qh2tnT98aiDFyrKa6eBY2XQdd7yTxwRSTWkRfksw8kc7Sne3L49MOH7tkNXT3wjlg',
-        code: 'AQAuGqOPBSMkPtmBqndqeNkZeOM0fqnafUmkWDq7tXJCrg6Xho8liDXAyi8v84nQjmUUAe-DQK6NM_MAVIl5Zt4udLqRfrcnyoCfvAwGTtsbYG5lfvXJH29MNozJTEwY9lj7qXFo3DksLJKRoTR-W0yrKjB7Qa37pJg70C6aV0asdpPR-YxBa8NDOKmQY8LWzVFp9FudehWJN4YGINaMlVRvyTT5l49whRBoYn5w0fU1lnzBpWA6vceea_4L5lv3GQNJfbtXN_M7djRdVbJ5vhK5uOgCclABM6JVkX7qhYHF6nj0K4UsRfMxM09WcbxhfjF7aojmLkoptm1T7oXfoZLoyRfO9kcBTi4yBZ9t982B52n4t--E_cdR3yy8FhAK0nH9UWaFBsxpPr-chBXnhAdpMipthWyqLf4x4bPRRQLS5gig8pA0yV9gjQcL5Y8CyNgKOU-ZCApTkb0ehVrBOpX-CMR8z5PbyegLJ5oio8MmHsNXkBmkWhTQNbbFCeVgizphW_cYaPIIGBQShKDG2aS7AL1HOyoLuemS1JtEYkFbnnUBdpc-Tdm0tbjmTDT2U4GG1Hy3eCh7RmXGEctV6XiDJrJDTntjME0gloc',
-        refreshToken: 'AQBPjrS97zAk4jo8VmABoZ8W8w0GlUhxHQo4F3BkbVYRt15Ak22OPhaMW4VAGtrHdxuGbIwDACgBOgVFF4VodOURN25pOb9ee-6rd16RDTT-QzGcgHzkyPHUm1gE39uTVBA'
+        accessToken: 'Access Token',
+        code: 'Code',
+        refreshToken: 'Refresh Token'
     })
 }
 
