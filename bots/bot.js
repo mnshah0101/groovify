@@ -7,7 +7,7 @@ var client_secret = "a8704ddff0c440d4a1c73eed1fca7614"
 const mongoose = require('mongoose');
 const SpotifyWebApi = require('spotify-web-api-node');
 const { faker } = require('@faker-js/faker');
-const geoip = require('geoip-lite');
+const geoip = require('fast-geoip');
 const crypto = require('crypto');
 
 
