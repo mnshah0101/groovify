@@ -29,6 +29,8 @@ const Comment = require('./models/comments');
 const fs = require('fs');
 var CronJob = require('cron').CronJob;
 const { spawn } = require('child_process');
+var MongoStore = require('connect-mongo')(session);
+
 
 var job = new CronJob(
     '0 0 */12 * * *', // Run every 12 hours at 00:00:00
@@ -71,10 +73,18 @@ mongoose.connect(`mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mon
 
 
 //Session Configuration
+
+const store = new MongoStore({
+    url: `mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mongodb.net/?retryWrites=true&w=majority`,
+    secret: process.env.SESSION_SECRET,
+    touchAfter: 24 * 60 * 60
+});
+
 const sessionConfig = {
+    store,
     name: process.env.SESSION_NAME,
     secret: process.env.SESSION_SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     cookie: {
         secure: false,
