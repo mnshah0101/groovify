@@ -148,7 +148,7 @@ const getToken = async (code, state, err) => {
         const data = await axios.post('https://accounts.spotify.com/api/token', {
             "grant_type": 'authorization_code',
             "code": code,
-            "redirect_uri": "http://localhost:3000/callback"
+            "redirect_uri": "https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback"
         }, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -222,7 +222,7 @@ const getPlaylists = async function (user) {
     const spotifyApi = new SpotifyWebApi({
         clientId: client_id,
         clientSecret: client_secret,
-        redirectUri: 'http://localhost:3000/callback',
+        redirectUri: 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback',
         refreshToken: user.refreshToken,
         accessToken: user.accessToken
 
@@ -402,7 +402,7 @@ app.post('/register', isNotLoggedIn, catchAsync(async (req, res, next) => {
 
 
     let state = randomString.generate(16);
-    let redirect_uri = 'http://localhost:3000/callback';
+    let redirect_uri = 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback';
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
             response_type: 'code',
@@ -485,13 +485,16 @@ app.get('/explore', isLoggedIn, updateRefreshToken, catchAsync(async (req, res) 
     let geo = geoip.lookup(ip);
     let lat = null;
     let lon = null;
+    let city = null;
     try {
         lat = geo.ll[0];
         lon = geo.ll[1];
+        city = geo.city;
     } catch {
 
         lat = 40.730610;
         lon = -73.935242;
+        city = "Washington DC";
     }
     let maxDistanceInKilometers = 1000;
     let nearbyPosts = await filterPostsByLocation(lat, lon, maxDistanceInKilometers);
