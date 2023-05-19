@@ -1,0 +1,245 @@
+<% layout('./layouts/boilerplate') %>
+
+
+
+
+
+
+
+    <div class="container">
+
+        <div class="row col-12">
+
+
+            <div class="col-12 col-md-9" style="height:100%">
+
+
+
+                <div class="row mt-4 mb-3" style="height:500px;">
+                    <iframe style="display: block;" title=" Spotify Embed: Recommendation Playlist "
+                        src='https://open.spotify.com/embed/playlist/<%=post.playlistId%>?utm_source=generator&theme=0'
+                        loading=" lazy" height="100%" width="100%"></iframe>
+                </div>
+                <div class="div d-flex flex-start col-12 justify-content-start mt-2">
+                    <div class="col-8">
+                        <h3>
+                            <%= post.name %>
+
+                        </h3>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-12 row mt-3 col-12  align-items-center ">
+                    <div class="col-4  col-md-6 d-flex justify-content-start align-items-center">
+                        <div class="col-md-2 col-6 ">
+                            <a href="http://localhost:3000/user/<%= user._id %>">
+
+
+                                <img src="<%= user.profilePicture%>" style="width:100%;">
+
+                            </a>
+                        </div>
+                        <div class="col-6  d-flex px-2 justify-content-start align-items-center">
+                            <p class=" display-6" style="font-size: 1.2rem;">
+                                <%= user.username%>
+                            </p>
+                        </div>
+                    </div>
+                    <div class=" col-8 col-md-6 d-flex justify-content-end align-items-end ">
+
+
+                        <div class="col-6 col-md-3 d-flex justify-content-end  " id="likes">
+                            <form id="like-form" action="" onsubmit="return likeComment(this);">
+                                <p class='reaction-label' id="likes_stat" style="display: inline;">
+                                    <%= post.likes.length%>
+                                </p>
+
+                                <button type="submit" id="like-button"
+                                    class="bi bi-hand-thumbs-up-fill justify-self-end"></button>
+                            </form>
+                        </div>
+
+                        <div class="col-6 col-md-3 d-flex justify-content-end " id="dislikes">
+                            <form id="dislike-form" action="" onsubmit="return dislikeComment(this);">
+
+                                <p id='dislikes_stat' class='reaction-label' style="display: inline;">
+                                    <%= post.dislikes.length%>
+                                </p>
+                                <button type="submit" id="dislike-button" class="bi bi-hand-thumbs-down-fill"></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 row mt-3 d-flex justify-content-start card align-items-start" id="show_card">
+                    <div class="col-12 d-block card-title">
+                        <p class="text-light" style="font-size:0.7rem;">
+                            Created: <%=post.date.toString().slice(0,16)%>
+
+                        </p>
+                        <div class="col-12 d-block">
+                            <p>
+                                <%=post.description%>
+                            </p>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="col-12 col-md-3 mt-3">
+                <hp style="font-size: 1.5rem;" class="pb-2">Comments</hp>
+                <form class="mt-2" action="" method="" onsubmit="return doComment(this);">
+                    <div id="comment_form" class="d-flex flex-column justify-content-center align-items-center">
+                        <input type="hidden" name="postId" value="<%= post._id %>">
+                        <input type="submit" style="display: none" />
+                        <input placeholder="Add a comment" type="text" class="form-control" name="comment" id="comment">
+                    </div>
+
+
+
+                </form>
+
+                <div id="comments" class="row mt-4">
+
+
+                    <% for (let comment of comments) { %>
+                        <div class="ind-comment mb-3">
+                            <div class="card" style="background-color:#282828; color: white;">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-size: 0.5rem;">
+                                        <%= comment.userId.username %>
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2" style="color:#BBBBBB; font-size:0.8rem;">
+                                        <%= comment.date.toString().substring(0, 15); %>
+                                    </h6>
+                                    <p class="card-text">
+                                        <%= comment.comment %>
+                                    </p>
+                                    <% if(comment.userId._id.toString()==thisUser._id.toString()) { %>
+                                        <form action="" onsubmit="return deleteComment(this);" method="POST">
+                                            <input type="hidden" name="commentId" value="<%= comment._id %>">
+                                            <button type="submit" style="background:none;border:none;padding:0;">
+                                                <img src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Close_Icon_Dark-512.png"
+                                                    alt="Delete Comment" id="deleteCommentDiv">
+                                            </button>
+                                        </form>
+                                        <% } %>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        function doComment(form) {
+            $.ajax({
+                url: "/comment",
+                method: "POST",
+                data: {
+                    postId: form.postId.value,
+                    comment: form.comment.value
+                },
+                success: function (response) {
+
+                    $('#comments').load(document.URL + ' #comments');
+                    $("#comment").val('');
+
+                }
+            });
+            return false;
+
+        }
+
+    </script>
+
+
+
+
+
+
+
+    <script>
+
+
+        var postId = "<%= post._id %>";
+        function likeComment(form) {
+            $.ajax({
+                url: "/post/like",
+                method: "POST",
+                data: {
+                    postId: postId
+                },
+                success: function (response) {
+
+                    $('#likes_stat').load(document.URL + ' #likes_stat');
+
+
+
+                }
+            });
+            return false;
+
+        }
+        function dislikeComment(form) {
+            $.ajax({
+                url: "/post/dislike",
+                method: "POST",
+                data: {
+                    postId: postId
+                },
+                success: function (response) {
+
+                    $('#dislikes_stat').load(document.URL + ' #dislikes_stat');
+
+
+
+
+                }
+            });
+            return false;
+
+        }
+
+        function deleteComment(form) {
+            $.ajax({
+                url: "/comment",
+                method: "DELETE",
+                data: {
+                    commentId: form.commentId.value
+                },
+                success: function (response) {
+
+                    $('#comments').load(document.URL + ' #comments');
+                }
+            });
+            return false;
+        }
+
+    </script>

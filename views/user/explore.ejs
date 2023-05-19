@@ -1,0 +1,595 @@
+<% layout('./layouts/boilerplate') %>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-sm-12 mb-4 d-flex flex-column align-items-center justify-content-center">
+                <h4 class="mb-3">This Year's Hottest</h4>
+
+                <% if(year){ %>
+                    <div id="post-card" class="card" style="width: 18rem;">
+                        <a href="/show/<%=year._id%>" target="_blank" rel="noopener noreferrer"
+                            class="stretched-link"></a>
+
+                        <img class="card-img-top" src="<%=year.images%>" alt="Card image cap">
+
+
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <%=year.name %>
+                            </h6>
+                            <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                <%=year.user.username %>
+
+
+
+
+                            </p>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div id="post-card" class="card" style="width: 18rem;">
+
+                            <img class="card-img-top"
+                                src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                alt="Card image cap">
+
+
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    No Posts Yet
+                                </h6>
+                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+
+
+
+
+
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mb-4 d-flex flex-column align-items-center justify-content-center">
+                <h4 class="mb-3">This Month's Hottest</h4>
+
+                <% if(month){ %>
+                    <div id="post-card" class="card" style="width: 18rem;">
+                        <a href="/show/<%=month._id%>" target="_blank" rel="noopener noreferrer"
+                            class="stretched-link"></a>
+
+                        <img class="card-img-top" src="<%=month.images%>" alt="Card image cap">
+
+
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <%=month.name %>
+                            </h6>
+                            <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                <%=month.user.username %>
+
+
+
+
+                            </p>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div id="post-card" class="card" style="width: 18rem;">
+
+                            <img class="card-img-top"
+                                src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                alt="Card image cap">
+
+
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    No Posts Yet
+                                </h6>
+                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+
+
+
+
+
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mb-4 d-flex flex-column align-items-center justify-content-center">
+                <h4 class="mb-3">This Week's Hottest</h4>
+
+                <% if(week){ %>
+                    <div id="post-card" class="card" style="width: 18rem;">
+                        <a href="/show/<%=week._id%>" target="_blank" rel="noopener noreferrer"
+                            class="stretched-link"></a>
+
+                        <img class="card-img-top" src="<%=week.images%>" alt="Card image cap">
+
+
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <%=week.name %>
+                            </h6>
+                            <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                <%=week.user.username %>
+
+
+
+
+                            </p>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div id="post-card" class="card" style="width: 18rem;">
+
+                            <img class="card-img-top"
+                                src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                alt="Card image cap">
+
+
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    No Posts Yet
+                                </h6>
+                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+
+
+
+
+
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mb-4 d-flex flex-column align-items-center justify-content-center">
+                <h4 class="mb-3">Today's Hottest</h4>
+
+                <% if(day){ %>
+                    <div id="post-card" class="card" style="width: 18rem;">
+                        <a href="/show/<%=day._id%>" target="_blank" rel="noopener noreferrer"
+                            class="stretched-link"></a>
+
+                        <img class="card-img-top" src="<%=day.images%>" alt="Card image cap">
+
+
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <%=day.name %>
+                            </h6>
+                            <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                <%=day.user.username %>
+
+
+
+
+                            </p>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <div id="post-card" class="card" style="width: 18rem;">
+
+                            <img class="card-img-top"
+                                src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                alt="Card image cap">
+
+
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    No Posts Yet
+                                </h6>
+                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+
+
+
+
+
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="d-flex flex-column justify-content-center align-items-center">
+
+
+        <div id="all_posts" class="container">
+            <h2 class="text-white">Your Feed</h2>
+
+
+            <div id="scroll-list" class="search-table-outter wrapper mb-4">
+
+                <table class="search-table inner">
+
+                    <tr>
+                        <%if(feed && feed.length>0){%>
+                            <%if(feed.length<5){%>
+                                <%feed.slice().reverse().forEach((playlist,i)=> {%>
+
+
+                                    <th>
+                                        <div id="post-card" class="card" style="width: 18rem;">
+                                            <a href="/show/<%=playlist._id%>" target="_blank" rel="noopener noreferrer"
+                                                class="stretched-link"></a>
+
+                                            <img class="card-img-top" src="<%=playlist.images%>" alt="Card image cap">
+
+
+                                            <div class="card-body">
+                                                <h6 class="card-title">
+                                                    <%=playlist.name %>
+                                                </h6>
+                                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                                    <%=playlist.user.username %>
+
+
+
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </th>
+
+
+
+                                    <%})%>
+                                        <%for(let k=feed.length; k<5;k++){%>
+                                            <th>
+                                                <div id="post-card" class="card" style="width: 18rem;">
+                                                    <img class="card-img-top"
+                                                        src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">
+                                                            Find Some New Users to Follow
+                                                            <a href="/posts/create" class="stretched-link"></a>
+                                                        </h6>
+                                                        <p class="card-text" style="font-size: 0.7rem;">
+
+
+
+
+
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+
+
+
+
+                                            <%}%>
+                                                <%}else{ feed.slice().reverse().forEach((playlist,i)=> {%>
+                                                    <th>
+                                                        <div id="post-card" class="card" style="width: 18rem;">
+                                                            <a href="/show/<%=playlist._id%>" target="_blank"
+                                                                rel="noopener noreferrer" class="stretched-link"></a>
+                                                            <img class="card-img-top" src="<%=playlist.images%>"
+                                                                alt="Card image cap">
+
+                                                            <div class="card-body">
+                                                                <h6 class="card-title">
+                                                                    <%=playlist.name %>
+                                                                </h6>
+                                                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                                                    <%=playlist.user.username %>
+
+
+
+
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <% }) }%>
+                                                        <% }else{ %>
+
+                                                            <div class="jumbotron mt-4">
+                                                                <h1 class="display-4">No posts to show!</h1>
+
+                                                                <hr class="my-4">
+                                                                <p>Follow Some More People to See Other Posts</p>
+                                                                <p class="lead">
+                                                                    <a class="btn btn-primary btn-lg"
+                                                                        href="/posts/create" role="button">Learn
+                                                                        more</a>
+                                                                </p>
+                                                            </div>
+                                                            <% } %>
+                    </tr>
+
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <div id="all_posts" class="container">
+            <h2 class="text-white">Recently Posted.</h2>
+
+
+            <div id="scroll-list" class="search-table-outter wrapper mb-4">
+
+                <table class="search-table inner">
+
+                    <tr>
+                        <%if(recentPosts&& recentPosts.length>0){%>
+                            <%if(recentPosts.length<5){%>
+                                <%recentPosts.slice().reverse().forEach((playlist,i)=> {%>
+
+
+                                    <th>
+                                        <div id="post-card" class="card" style="width: 18rem;">
+                                            <a href="/show/<%=playlist._id%>" target="_blank" rel="noopener noreferrer"
+                                                class="stretched-link"></a>
+
+                                            <img class="card-img-top" src="<%=playlist.images%>" alt="Card image cap">
+
+
+                                            <div class="card-body">
+                                                <h6 class="card-title">
+                                                    <%=playlist.name %>
+                                                </h6>
+
+
+                                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                                    <%=playlist.user.username %>
+
+
+
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </th>
+
+
+
+                                    <%})%>
+                                        <%for(let k=recentPosts.length; k<5;k++){%>
+                                            <th>
+                                                <div id="post-card" class="card" style="width: 18rem;">
+                                                    <img class="card-img-top"
+                                                        src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">
+                                                            Find Some New Users to Follow
+                                                            <a href="/posts/create" class="stretched-link"></a>
+                                                        </h6>
+                                                        <p class="card-text">
+
+
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+
+
+
+
+                                            <%}%>
+                                                <%}else{ recentPosts.slice().reverse().forEach((playlist,i)=> {%>
+                                                    <th>
+                                                        <div id="post-card" class="card" style="width: 18rem;">
+                                                            <a href="/show/<%=playlist._id%>" target="_blank"
+                                                                rel="noopener noreferrer" class="stretched-link"></a>
+                                                            <img class="card-img-top" src="<%=playlist.images%>"
+                                                                alt="Card image cap">
+
+                                                            <div class="card-body">
+                                                                <h6 class="card-title">
+                                                                    <%=playlist.name %>
+                                                                </h6>
+
+                                                                <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                                                    <%=playlist.user.username %>
+
+
+
+
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <% }) }%>
+                                                        <% }else{ %>
+
+                                                            <div class="jumbotron mt-4">
+                                                                <h1 class="display-4">No recent posts to show!</h1>
+
+                                                                <hr class="my-4">
+                                                                <p>Follow Some More People to See Other Posts</p>
+                                                                <p class="lead">
+                                                                    <a class="btn btn-primary btn-lg"
+                                                                        href="/posts/create" role="button">Learn
+                                                                        more</a>
+                                                                </p>
+                                                            </div>
+                                                            <% } %>
+                    </tr>
+
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div id="all_posts" class="container">
+                <h2 class="text-white">What People Near You in <%= city %> are listening to...</h2>
+
+
+                <div id="scroll-list" class="search-table-outter wrapper mb-4">
+
+                    <table class="search-table inner">
+
+                        <tr>
+                            <%if(nearbyPosts&& nearbyPosts.length>0){%>
+                                <%if(nearbyPosts.length<5){%>
+                                    <%nearbyPosts.slice().reverse().forEach((playlist,i)=> {%>
+
+
+                                        <th>
+                                            <div id="post-card" class="card" style="width: 18rem;">
+                                                <a href="/show/<%=playlist._id%>" target="_blank"
+                                                    rel="noopener noreferrer" class="stretched-link"></a>
+
+                                                <img class="card-img-top" src="<%=playlist.images%>"
+                                                    alt="Card image cap">
+
+
+                                                <div class="card-body">
+                                                    <h6 class="card-title">
+                                                        <%=playlist.name %>
+                                                    </h6>
+
+
+                                                    <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                                        <%=playlist.user.username %>
+
+
+
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </th>
+
+
+
+                                        <%})%>
+                                            <%for(let k=nearbyPosts.length; k<5;k++){%>
+                                                <th>
+                                                    <div id="post-card" class="card" style="width: 18rem;">
+                                                        <img class="card-img-top"
+                                                            src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                            alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                Find Some New Users to Follow
+                                                                <a href="/posts/create" class="stretched-link"></a>
+                                                            </h6>
+                                                            <p class="card-text">
+
+
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+
+
+
+
+
+                                                <%}%>
+                                                    <%}else{ nearbyPosts.slice().reverse().forEach((playlist,i)=> {%>
+                                                        <th>
+                                                            <div id="post-card" class="card" style="width: 18rem;">
+                                                                <a href="/show/<%=playlist._id%>" target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    class="stretched-link"></a>
+                                                                <img class="card-img-top" src="<%=playlist.images%>"
+                                                                    alt="Card image cap">
+
+                                                                <div class="card-body">
+                                                                    <h6 class="card-title">
+                                                                        <%=playlist.name %>
+                                                                    </h6>
+
+                                                                    <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                                                        <%=playlist.user.username %>
+
+
+
+
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </th>
+                                                        <% }) }%>
+                                                            <% }else{ %>
+
+                                                                <div class="jumbotron mt-4">
+                                                                    <h1 class="display-4">No posts to show!</h1>
+
+                                                                    <hr class="my-4">
+                                                                    <p>Follow Some More People to See Other Posts</p>
+                                                                    <p class="lead">
+                                                                        <a class="btn btn-primary btn-lg"
+                                                                            href="/posts/create" role="button">Learn
+                                                                            more</a>
+                                                                    </p>
+                                                                </div>
+                                                                <% } %>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+            </div>

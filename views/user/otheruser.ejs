@@ -1,0 +1,247 @@
+<% layout('./layouts/boilerplate') %>
+    <div class="d-flex flex-column justify-content-center align-items-center" id="full_user_profile">
+        <div id="dashboard" class="row mb-5 mt-4">
+            <div id="profile-profile"
+                class="col-sm-6 col-12 d-flex flex-column justify-content-center align-items-center">
+                <div class="user-image position-relative">
+                    <img src="<%=user.profilePicture%>" style="width: 100%;" alt="Bear Image"
+                        id="dashboardProfilePicture">
+
+
+                </div>
+
+                <% if(!doesFollow){ %>
+                    <span id="followdiv">
+                        <form id="followForm" action="" onsubmit="return submitFollowButton(this);" method="POST">
+                            <input type="hidden" name="otherUser" value="<%= user._id %>">
+                            <button type="submit" style="background:none;border:none;padding:0;">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:1rem;" width="2rem"
+                                    height="2rem" fill="white" class="bi bi-person-add" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                                    <path
+                                        d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+                                </svg>
+                            </button>
+                        </form>
+                        <% }else{ %>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" style="margin-top:1rem;" height="2rem"
+                                fill="white" class="bi bi-person-fill-check" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path
+                                    d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
+                            </svg>
+                            <% } %>
+                    </span>
+                    <div class="welcome-message mt-4  d-flex flex-column justify-content-center align-items-center">
+                        <p style='font-size: 1.3rem;' class="display-6">
+                            <%=user.username%>
+                        </p>
+                        <form action="/" method="post"></form>
+                    </div>
+
+            </div>
+            <div id="profile-dashboard" class="col-6 d-sm-flex d-none">
+                <div class="container">
+                    <div class="row" style="height: 50%;">
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-music-note-beamed"></i>
+
+                            <h1>
+                                <%= user.posts.length %>
+                            </h1>
+                            <h5>Playlists</h5>
+
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                            <% let likes=0; %>
+
+                                <% user.posts.forEach((playlist)=> { %>
+                                    <% likes +=playlist.likes.length %>
+                                        <% }) %>
+                                            <h1>
+                                                <%= likes %>
+                                            </h1>
+                                            <h5>Likes</h5>
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row" style="height: 50%;">
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-eye-fill"></i>
+
+                            <% let views=0; %>
+                                <% user.posts.forEach((playlist)=> { %>
+                                    <% views +=playlist.views %>
+                                        <% }) %>
+                                            <h1>
+                                                <%= views %>
+                                            </h1>
+                                            <h5>Views</h5>
+
+
+
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-people-fill"></i>
+
+                            <h1>
+                                <%= user.followers.length %>
+                            </h1>
+                            <h5>Followers</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="all_posts" class="container">
+        <h2 class="text-white">Their Posts</h2>
+
+
+        <div id="scroll-list" class="search-table-outter wrapper mb-4">
+
+            <table class="search-table inner">
+
+                <tr>
+                    <%if(user.posts && user.posts.length>0){%>
+                        <%if(user.posts.length<5){%>
+                            <%user.posts.slice().reverse().forEach((playlist,i)=> {%>
+
+
+                                <th>
+                                    <div id="post-card" class="card" style="width: 18rem;">
+                                        <a href="/show/<%=playlist._id%>" target="_blank" rel="noopener noreferrer"
+                                            class="stretched-link"></a>
+
+                                        <img class="card-img-top" src="<%=playlist.images%>" alt="Card image cap">
+
+
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                <%=playlist.name %>
+                                            </h6>
+                                            <p class="card-text">
+
+
+
+
+
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </th>
+
+
+
+                                <%})%>
+                                    <%for(let k=user.posts.length; k<5;k++){%>
+                                        <th>
+                                            <div id="post-card" class="card" style="width: 18rem;">
+                                                <img class="card-img-top"
+                                                    src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                    alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">
+                                                        Add a Post
+                                                        <a href="/posts/create" class="stretched-link"></a>
+                                                    </h6>
+                                                    <p class="card-text">
+
+
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </th>
+
+
+
+
+
+                                        <%}%>
+                                            <%}else{ user.posts.slice().reverse().forEach((playlist,i)=> {%>
+                                                <th>
+                                                    <div id="post-card" class="card" style="width: 18rem;">
+                                                        <a href="/show/<%=playlist._id%>" target="_blank"
+                                                            rel="noopener noreferrer" class="stretched-link"></a>
+                                                        <img class="card-img-top" src="<%=playlist.images%>"
+                                                            alt="Card image cap">
+
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                <%=playlist.name %>
+                                                            </h6>
+                                                            <p class="card-text">
+
+
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <% }) }%>
+                                                    <% }else{ %>
+
+                                                        <div class="jumbotron mt-4">
+                                                            <h1 class="display-4">No posts to show!</h1>
+
+                                                            <hr class="my-4">
+                                                            <p>Looks like they haven't created any posts yet!</p>
+                                                            <p class="lead">
+                                                                <a class="btn btn-primary btn-lg" href="/posts/create"
+                                                                    role="button">Learn
+                                                                    more</a>
+                                                            </p>
+                                                        </div>
+                                                        <% } %>
+                </tr>
+
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <script> function submitFollowButton(form) {
+            $.ajax({
+                url: "/user/follow",
+                method: "POST",
+                data: {
+                    otherUser: form.otherUser.value
+                },
+                success: function (response) {
+
+                    $('#followdiv').load(document.URL + ' #followdiv');
+                }
+            });
+            return false;
+        }
+
+    </script>

@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "name": "Groovify",
+    "builds": [
+        {
+            "src": "package.json",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ],
+    "env": {
+        "CUSTOM_ENV_VARIABLE": "my-value"
+    },
+    "regions": [
+        "sfo1"
+    ]
+}

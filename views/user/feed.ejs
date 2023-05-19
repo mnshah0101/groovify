@@ -1,0 +1,61 @@
+<% layout('./layouts/boilerplate') %>
+
+    <div class="container vh-100 d-flex flex-column align-items-center pb-5" style="overflow-y: auto;">
+        <h1>Your Feed</h1>
+
+        <table class="table">
+            <thead>
+
+            </thead>
+            <tbody>
+
+                <%if(feed && feed.length>0){%>
+
+                    <%feed.slice().reverse().forEach((playlist,i)=> {%>
+                        <tr>
+                            <div id="post-card" class="card m-4" style="width: 40%;">
+                                <a href="/show/<%=playlist._id%>" target="_blank" rel="noopener noreferrer"
+                                    class="stretched-link"></a>
+                                <img class="card-img-top" src="<%=playlist.images%>" alt="Card image cap">
+
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <%=playlist.name %>
+                                    </h6>
+                                    <p class="card-text" style="font-size: 0.7rem;">
+
+
+                                        <%=playlist.user.username %>
+                                            <br>
+                                            <%=playlist.description %>
+                                                <br>
+                                                <%=playlist.date.toLocaleDateString('en-US', { weekday: 'long' ,
+                                                    month: 'long' , day: 'numeric' , year: 'numeric' }); %>
+
+
+
+
+
+                                    </p>
+                                </div>
+                            </div>
+                        </tr>
+                        <% }) %>
+                            <% }else{ %>
+
+                                <div class="jumbotron mt-4">
+                                    <h1 class="display-4">No posts to show!</h1>
+
+                                    <hr class="my-4">
+                                    <p>Follow Some More People to See Other Posts</p>
+                                    <p class="lead">
+                                        <a class="btn btn-primary btn-lg" href="/posts/create" role="button">Learn
+                                            more</a>
+                                    </p>
+                                </div>
+                                <% } %>
+
+                                    <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>

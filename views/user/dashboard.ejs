@@ -1,0 +1,413 @@
+<% layout('./layouts/boilerplate') %>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div id="dashboard" class="row mb-5 mt-4">
+            <div id="profile-profile"
+                class="col-sm-6 col-12 d-flex flex-column justify-content-center align-items-center">
+                <div class="user-image position-relative">
+                    <img src="<%=user.profilePicture%>" style="width: 100%;" alt="Bear Image"
+                        id="dashboardProfilePicture">
+                    <a class="stretched-link" href="/user/<%=user._id%>/profilepicture"></a>
+                </div>
+                <div class="welcome-message mt-4  d-flex flex-column justify-content-center align-items-center">
+                    <p style='font-size: 1.3rem;' class="display-6">Welcome, <%=user.username%>
+                    </p>
+                </div>
+
+            </div>
+            <div id="profile-dashboard" class="col-6 d-sm-flex d-none">
+                <div class="container">
+                    <div class="row" style="height: 50%;">
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-music-note-beamed"></i>
+
+                            <h1>
+                                <%= user.posts.length %>
+                            </h1>
+                            <h5>Playlists</h5>
+
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+
+                            <% let likes=0; %>
+
+                                <% user.posts.forEach((playlist)=> { %>
+                                    <% likes +=playlist.likes.length %>
+                                        <% }) %>
+                                            <h1>
+                                                <%= likes %>
+                                            </h1>
+                                            <h5>Likes</h5>
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row" style="height: 50%;">
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-eye-fill"></i>
+
+                            <% let views=0; %>
+                                <% user.posts.forEach((playlist)=> { %>
+                                    <% views +=playlist.views %>
+                                        <% }) %>
+                                            <h1>
+                                                <%= views %>
+                                            </h1>
+                                            <h5>Views</h5>
+
+
+
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-center align-items-center dashboard-stat">
+                            <i class="bi bi-people-fill"></i>
+
+                            <h1>
+                                <%= user.followers.length %>
+                            </h1>
+                            <h5>Followers</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="all_posts" class="container">
+        <h2 class="text-white">Your Posts</h2>
+
+
+        <div id="scroll-list" class="search-table-outter wrapper mb-4">
+
+            <table class="search-table inner">
+
+                <tr>
+                    <%if(user.posts && user.posts.length>0){%>
+                        <%if(user.posts.length<5){%>
+                            <%user.posts.slice().reverse().forEach((playlist,i)=> {%>
+
+
+                                <th>
+                                    <div id="post-card" class="card" style="width: 18rem;">
+                                        <a href="/show/<%=playlist._id%>" target="_blank" rel="noopener noreferrer"
+                                            class="stretched-link"></a>
+
+                                        <img class="card-img-top" src="<%=playlist.images%>" alt="Card image cap">
+
+
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                <%=playlist.name %>
+                                            </h6>
+                                            <p class="card-text">
+                                            <form id="deletePost<%=i%>" action="/posts?_method=DELETE" method="POST">
+                                                <input type="hidden" name="playlistId" value="<%=playlist._id%>">
+
+                                                <div class="post-button">
+
+                                                    <a onclick="submitFormPost(<%-i%>)" href="#"
+                                                        class="stretched-link dashboardSubmitButton">
+                                                        <img src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Close_Icon_Dark-512.png"
+                                                            alt="" style="height: 50px;"></a>
+                                                </div>
+                                            </form>
+
+
+
+
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </th>
+
+
+
+                                <%})%>
+                                    <%for(let k=user.posts.length; k<5;k++){%>
+                                        <th>
+                                            <div id="post-card" class="card" style="width: 18rem;">
+                                                <img class="card-img-top"
+                                                    src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                    alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">
+                                                        Add a Post
+                                                        <a href="/posts/create" class="stretched-link"></a>
+                                                    </h6>
+                                                    <p class="card-text">
+
+
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </th>
+
+
+
+
+
+                                        <%}%>
+                                            <%}else{ user.posts.slice().reverse().forEach((playlist,i)=> {%>
+                                                <th>
+                                                    <div id="post-card" class="card" style="width: 18rem;">
+                                                        <a href="/show/<%=playlist._id%>" target="_blank"
+                                                            rel="noopener noreferrer" class="stretched-link"></a>
+                                                        <img class="card-img-top" src="<%=playlist.images%>"
+                                                            alt="Card image cap">
+
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">
+                                                                <%=playlist.name %>
+                                                            </h6>
+                                                            <p class="card-text">
+                                                            <form id="deletePost<%=i%>" action="/posts?_method=DELETE"
+                                                                method="POST">
+                                                                <input type="hidden" name="playlistId"
+                                                                    value="<%=playlist._id%>">
+
+
+
+
+                                                                <div class="post-button">
+
+                                                                    <a onclick="submitFormPost(<%-i%>)" href="#"
+                                                                        class="stretched-link dashboardSubmitButton">
+                                                                        <img src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Close_Icon_Dark-512.png"
+                                                                            alt="" style="height: 50px;"></a>
+                                                                </div>
+                                                            </form>
+
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <% }) }%>
+                                                    <% }else{ %>
+
+                                                        <div class="jumbotron mt-4">
+                                                            <h1 class="display-4">No posts to show!</h1>
+
+                                                            <hr class="my-4">
+                                                            <p>Looks like you haven't created any posts yet! Post your
+                                                                playlists online!</p>
+                                                            <p class="lead">
+                                                                <a class="btn btn-primary btn-lg" href="/posts/create"
+                                                                    role="button">Learn
+                                                                    more</a>
+                                                            </p>
+                                                        </div>
+                                                        <% } %>
+                </tr>
+
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <h2 class="text-white">Your Playlists</h2>
+        <div id="scroll-list" class="search-table-outter wrapper">
+
+
+            <table class="search-table inner">
+
+                <tr>
+                    <%if(playlists && playlists.items.length>0){%>
+                        <%if(playlists.items.length<5){%>
+                            <%playlists.items.forEach((playlist,i)=> {%>
+                                <th>
+                                    <div id="playlist-card" class="card" style="width: 18rem;">
+                                        <%if(playlist.images.length>0){%>
+
+                                            <img class="card-img-top" src="<%=playlist.images[0].url%>"
+                                                alt="Card image cap">
+                                            <%}else{%>
+
+                                                <img class="card-img-top"
+                                                    src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                    alt="Card image cap">
+                                                <%}%>
+
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">
+
+                                                            <%=playlist.name %>
+                                                                <a class="stretched-link"
+                                                                    href="https://open.spotify.com/playlist/<%= playlist.id %>"></a>
+                                                        </h6>
+                                                        <p class="card-text">
+                                                        <form id="createPost<%= i %>" action="/posts" method="POST">
+                                                            <input type="hidden" name="playlistId"
+                                                                value="<%=playlist.id%>">
+                                                            <input type="hidden" name="name" value="<%=playlist.name%>">
+                                                            <input type="hidden" name="image"
+                                                                value="<%=JSON.stringify(playlist.images)%>">
+
+                                                            <input type="hidden" name="description"
+                                                                value="<%=playlist.description%>">
+
+                                                            <div class="post-button">
+
+                                                                <a onclick="submitFormPlaylist(<%-i%>)" href="#"
+                                                                    class="stretched-link dashboardSubmitButton">
+                                                                    <img src="https://cdn0.iconfinder.com/data/icons/round-ui-icons/512/add_blue.png"
+                                                                        alt="" style="height: 50px;"></a>
+                                                            </div>
+
+                                                        </form>
+
+
+
+                                                        </p>
+                                                    </div>
+                                    </div>
+                                </th>
+
+
+
+                                <%})%>
+                                    <%for(let k=playlists.items.length; k<5;k++){%>
+                                        <th>
+                                            <div id="playlist-card" class="card" style="width: 18rem;">
+                                                <img class="card-img-top"
+                                                    src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                    alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">
+                                                        Add a Playlist
+                                                    </h6>
+                                                    <p class="card-text">
+                                                        <a href="" target="_blank" rel="noopener noreferrer"
+                                                            class="stretched-link"></a>
+
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </th>
+
+
+
+
+
+                                        <%}%>
+                                            <%}else{ playlists.items.forEach((playlist,i)=> {%>
+                                                <th>
+                                                    <div id="playlist-card" class="card" style="width: 18rem;">
+                                                        <%if(playlist.images.length>0){%>
+
+                                                            <img class="card-img-top" src="<%=playlist.images[0].url%>"
+                                                                alt="Card image cap">
+                                                            <%}else{%>
+
+                                                                <img class="card-img-top"
+                                                                    src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                                                                    alt="Card image cap">
+                                                                <%}%>
+                                                                    <div class="card-body">
+                                                                        <h6 class="card-title">
+                                                                            <%=playlist.name %>
+                                                                                <a class="stretched-link"
+                                                                                    href="https://open.spotify.com/playlist/<%= playlist.id %>"></a>
+
+                                                                        </h6>
+                                                                        <p class="card-text">
+                                                                        <form id="createPost<%= i %>" action="/posts"
+                                                                            method="POST">
+                                                                            <input type="hidden" name="playlistId"
+                                                                                value="<%=playlist.id%>">
+                                                                            <input type="hidden" name="name"
+                                                                                value="<%=playlist.name%>">
+                                                                            <input type="hidden" name="image"
+                                                                                value="<%=JSON.stringify(playlist.images)%>">
+
+                                                                            <input type="hidden" name="description"
+                                                                                value="<%=playlist.description%>">
+
+                                                                            <div class="post-button">
+
+                                                                                <a onclick="submitFormPlaylist(<%-i%>)"
+                                                                                    href="#"
+                                                                                    class="stretched-link dashboardSubmitButton">
+                                                                                    <img src="https://cdn0.iconfinder.com/data/icons/round-ui-icons/512/add_blue.png"
+                                                                                        alt="" style="height: 50px;">
+                                                                                </a>
+                                                                            </div>
+
+                                                                        </form>
+
+
+                                                                        </p>
+                                                                    </div>
+                                                    </div>
+                                                </th>
+                                                <% }) }%>
+                                                    <% }else{ %>
+
+                                                        <div class="jumbotron mt-4">
+                                                            <h1 class="display-4">No playlists to show!</h1>
+
+                                                            <hr class="my-4">
+                                                            <p>"Looks like you haven't created any playlists yet! Check
+                                                                out
+                                                                some
+                                                                amazing
+                                                                playlists on Spotify by exploring our app.</p>
+                                                            <p class="lead">
+                                                                <a class="btn btn-primary btn-lg" href="#"
+                                                                    role="button">Learn
+                                                                    more</a>
+                                                            </p>
+                                                        </div>
+                                                        <% } %>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+
+    <script>
+        function submitFormPlaylist(k) {
+
+
+
+
+            document.getElementById(`createPost${k}`).submit();
+
+
+
+        }
+    </script>
+    <script>
+        function submitFormPost(k) {
+
+
+
+
+            document.getElementById(`deletePost${k}`).submit();
+
+
+
+        }
+    </script>

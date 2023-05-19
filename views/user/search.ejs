@@ -1,0 +1,46 @@
+<% layout('./layouts/boilerplate') %>
+    <style>
+        .card {
+            background-color: transparent;
+            max-width: 200px;
+            color: white;
+        }
+    </style>
+    <div class="container mt-5 vh-100 d-flex flex-column justify-content-center">
+        <h1 class="text-center mb-4">User Search</h1>
+        <div class="input-group mb-3">
+            <input id="search-bar" type="text" class="form-control" placeholder="Search for users by username or email">
+            <div class="input-group-append">
+                <button id="search-button" class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+        <div id="search-results" class="row mt-3"></div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('#search-bar').on('input', function () {
+                const query = jQuery('#search-bar').val();
+                jQuery.get('/search', { q: query }, function (data) {
+                    jQuery('#search-results').empty();
+                    data.forEach(function (user) {
+                        var card = `
+              <div class="col-md-2">
+                <div class="card mb-2 d-flex justify-content-center">
+                  <img src="${user.profilePicture}" class="card-img-top" alt="User Image">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">${user.username}</h5>
+                    <a href="/user/${user._id}" class="stretched-link"></a>
+
+                  </div>
+                </div>
+              </div>
+            `;
+                        jQuery('#search-results').append(card);
+                    });
+                }).fail(function (error) {
+                    console.log('Error:', error);
+                });
+            });
+        });
+    </script>

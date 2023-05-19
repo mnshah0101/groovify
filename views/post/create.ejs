@@ -1,0 +1,98 @@
+<% layout('./layouts/boilerplate') %>
+    <div class="container col-12 d-flex flex-column justify-content-center align-items-center">
+        <div class="row col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <div id="create-card" class="p-3 card d-flex flex-column justify-content-center align-items-center ">
+
+                <h1 class=" card-title">New Post</h1>
+
+                <div class="card-body">
+                    <p class="card-text">
+                    <h3>Choose a playlist to create a post</h3>
+                    </p>
+                </div>
+                <form action="/posts" method="POST" novalidate
+                    class="validated-form d-flex flex-column justify-content-center align-items-center">
+                    <select id="create-select"
+                        class="form-select form-select-lg mb-3 p-3 d-flex flex-column justify-content-center align-items-center"
+                        aria-label=".form-select-lg example" required>
+                        <option value="" selected disabled hidden>Select A Playlist</option>
+
+
+                        <%for(let k=0; k<playlists.length;k++){%>
+                            <option value="<%= k %>">
+                                <%=playlists[k].name%>
+                            </option>
+                            <%}%>
+
+                    </select>
+                    <div class="card p-3 d-flex flex-column justify-content-center align-items-center"
+                        style="width: 18rem;" id="image_card_create">
+                        <img class="card-img-top" id="my-image-post"
+                            src="https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="card_title" class="card-title">
+                                Add a Post
+                            </h5>
+                            <p class="card-text">
+
+
+                            </p>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="mb-3 mt-4">
+                        <label for="name" class="form-label" style="width: 18rem;">Playlist Name</label>
+                        <input type="text" class="form-control" id="playlist_name_post" name="name" required>
+                    </div>
+                    <input type="hidden" id="playlistId" name="playlistId">
+                    <input type="hidden" id="image" name="image">
+
+                    <div class="mb-3">
+                        <label for="description" style="width: 18rem;" class="form-label">Playlist Description</label>
+                        <textarea required class="form-control" name="description" id="playlist_description_post"
+                            rows="3"></textarea>
+
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var dropdown = document.getElementById("create-select");
+        dropdown.addEventListener("change", function () {
+            var selectedValue = dropdown.value;
+            var playlists = <%- JSON.stringify(playlists) %>;
+            var myImage = playlists[selectedValue].images[0].url
+            document.getElementById("my-image-post").src = myImage;
+            document.getElementById("card_title").innerHTML = playlists[selectedValue].name;
+            document.getElementById("playlist_description_post").innerHTML = playlists[selectedValue].description;
+            document.getElementById("playlist_name_post").value = playlists[selectedValue].name;
+            document.getElementById("playlistId").value = playlists[selectedValue].id;
+            document.getElementById("image").value = JSON.stringify(playlists[selectedValue].images);
+
+
+
+        });
+    </script>
