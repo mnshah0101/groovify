@@ -136,7 +136,7 @@ const getToken = async (code, state, err) => {
             response_type: 'code',
             client_id: client_id,
             scope: scopeString,
-            redirect_uri: 'http://localhost:3000/callback',
+            redirect_uri: 'https://groovify-spotify-am598vs7e-mnshah0101.vercel.app/callback',
             state: state
         }));
 
@@ -482,12 +482,19 @@ app.get('/explore', isLoggedIn, updateRefreshToken, catchAsync(async (req, res) 
     if (ip == "::1") {
         ip = "65.220.23.226"
     }
-    const geo = geoip.lookup(ip);
-    let lat = geo.ll[0];
-    let lon = geo.ll[1];
+    let geo = geoip.lookup(ip);
+    let lat = null;
+    let lon = null;
+    try {
+        lat = geo.ll[0];
+        lon = geo.ll[1];
+    } catch {
+
+        lat = 40.730610;
+        lon = -73.935242;
+    }
     let maxDistanceInKilometers = 1000;
     let nearbyPosts = await filterPostsByLocation(lat, lon, maxDistanceInKilometers);
-    let city = geo.city;
 
     let year = await getMostViewedPost(Date.now() - 365 * 24 * 60 * 60 * 1000, Date.now())
     let month = await getMostViewedPost(Date.now() - 30 * 24 * 60 * 60 * 1000, Date.now())
@@ -554,7 +561,18 @@ app.post('/posts', isLoggedIn, updateRefreshToken, catchAsync(async (req, res) =
     }
 
     let geo = geoip.lookup(ip);
-    let newPost = new Post({ location: geo.ll, name, description, images, playlistId, user, date, likes: [], dislikes: [] });
+    let lat = null;
+    let lon = null;
+    try {
+        lat = geo.ll[0];
+        lon = geo.ll[1];
+    } catch {
+
+        lat = 40.730610;
+        lon = -73.935242;
+    }
+
+    let newPost = new Post({ location: [lat, lon], name, description, images, playlistId, user, date, likes: [], dislikes: [] });
     await newPost.save();
     await user.posts.push(newPost);
     await user.save();
