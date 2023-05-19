@@ -3,7 +3,7 @@
     "name": "Groovify",
     "builds": [
         {
-            "src": "package.json",
+            "src": "app.js",
             "use": "@vercel/node"
         }
     ],
