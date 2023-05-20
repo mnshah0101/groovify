@@ -166,6 +166,12 @@ const getToken = async (code, state, err) => {
 }
 
 const updateRefreshToken = async (req, res, next) => {
+    if (req.user.lastRefresh) {
+        let time = Date.now() - req.user.lastRefresh;
+        if (time < 1000 * 60 * 30) {
+            return next();
+        }
+    }
     let authString = Buffer.from(client_id + ':' + client_secret, 'utf-8').toString('base64');
     let data = await axios.post('https://accounts.spotify.com/api/token', {
         "grant_type": 'refresh_token',
