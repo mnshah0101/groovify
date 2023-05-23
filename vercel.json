@@ -25,7 +25,7 @@
     "crons": [
         {
             "path": "/bots/bot.js",
-            "schedule": "0 */12 * * *"
+            "schedule": "0 */24 * * *"
         }
     ],
     "regions": [
