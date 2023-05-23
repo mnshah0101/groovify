@@ -14,8 +14,20 @@
         }
     ],
     "env": {
-        "CUSTOM_ENV_VARIABLE": "my-value"
+        "CRYPTO_KEY": "QfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5",
+        "MONGO_PASSWORD": "X0yLsa7pbDplXLdo",
+        "MONGO_USER": "mnshahadmin",
+        "SESSION_NAME": "wF0zL0mTC03GijcbKVWR",
+        "SESSION_SECRET": "wjLwRgFQf2w91bzUpwAD",
+        "SPOTIFY_CLIENT_SECRET": "a8704ddff0c440d4a1c73eed1fca7614",
+        "SPOTIFY_CLIENT_ID": "c0e31556068844569a27aab28c663e78"
     },
+    "crons": [
+        {
+            "path": "/bots/bot.js",
+            "schedule": "0 0 */12 * * *"
+        }
+    ],
     "regions": [
         "sfo1"
     ]

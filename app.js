@@ -27,33 +27,8 @@ const Post = require('./models/posts');
 const geoip = require('fast-geoip');
 const Comment = require('./models/comments');
 const fs = require('fs');
-var CronJob = require('cron').CronJob;
-const { spawn } = require('child_process');
 var MongoStore = require('connect-mongo');
 
-
-var job = new CronJob(
-    '0 0 */12 * * *', // Run every 12 hours at 00:00:00
-    function () {
-        console.log('You will see this message every 12 hours');
-
-        // Run the bot.js script using child_process.spawn
-        const botProcess = spawn('node', ['bots/bot.js']);
-
-        // Log the output of the bot.js script if any
-        botProcess.stdout.on('data', (data) => {
-            console.log(`Output from bot.js: ${data}`);
-        });
-
-        // Log any errors that occur during the execution of the bot.js script
-        botProcess.stderr.on('data', (data) => {
-            console.error(`Error from bot.js: ${data}`);
-        });
-    },
-    null,
-    true,
-    'America/Los_Angeles'
-);
 
 
 
