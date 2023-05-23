@@ -116,7 +116,7 @@ const getToken = async (code, state, err) => {
             response_type: 'code',
             client_id: client_id,
             scope: scopeString,
-            redirect_uri: 'https://groovify-spotify.vercel.app/callback',
+            redirect_uri: 'https://groovify.vercel.app/callback',
             state: state
         }));
 
@@ -128,7 +128,7 @@ const getToken = async (code, state, err) => {
         const data = await axios.post('https://accounts.spotify.com/api/token', {
             "grant_type": 'authorization_code',
             "code": code,
-            "redirect_uri": "https://groovify-spotify.vercel.app/callback"
+            "redirect_uri": "https://groovify.vercel.app/callback"
         }, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -209,7 +209,7 @@ const getPlaylists = async function (user) {
     const spotifyApi = new SpotifyWebApi({
         clientId: client_id,
         clientSecret: client_secret,
-        redirectUri: 'https://groovify-spotify.vercel.app/callback',
+        redirectUri: 'https://groovify.vercel.app/callback',
         refreshToken: user.refreshToken,
         accessToken: user.accessToken
 
@@ -389,7 +389,7 @@ app.post('/register', isNotLoggedIn, catchAsync(async (req, res, next) => {
 
 
     let state = randomString.generate(16);
-    let redirect_uri = 'https://groovify-spotify.vercel.app/callback';
+    let redirect_uri = 'https://groovify.vercel.app/callback';
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
             response_type: 'code',
