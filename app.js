@@ -15,6 +15,8 @@ var mongo_pass = process.env.MONGO_PASSWORD;
 var session_name = process.env.SESSION_NAME;
 var session_secret = process.env.SESSION_SECRET;
 
+console.log(client_id)
+
 const randomString = require('randomstring');
 const querystring = require('querystring');
 const axios = require('axios');
