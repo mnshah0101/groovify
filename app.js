@@ -2,10 +2,18 @@
 const express = require('express');
 const app = express(); // create express app
 const port = 3000; // define port
+
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
+
 var client_id = process.env.SPOTIFY_CLIENT_ID;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 var mongo_user = process.env.MONGO_USER;
 var mongo_pass = process.env.MONGO_PASSWORD;
+var session_name = process.env.SESSION_NAME;
+var session_secret = process.env.SESSION_SECRET;
 
 const randomString = require('randomstring');
 const querystring = require('querystring');
@@ -52,8 +60,8 @@ mongoose.connect(`mongodb+srv://${mongo_user}:${mongo_pass}@groovify.mshdgj8.mon
 
 
 app.use(session({
-    name: process.env.SESSION_NAME,
-    secret: process.env.SESSION_SECRET,
+    name: session_name,
+    secret: session_secret,
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
